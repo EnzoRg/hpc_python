@@ -37,9 +37,9 @@ Las metricas utilizadas para evaluar el rendimiento al paralelizar el proceso so
 
 - Eficiencia: mide el grado de aprovechamiento de los recursos de cómputo. Se calcula como el speedup dividido por el número de procesadores *p*. Un valor de 1 representa el caso ideal, en el cual todos los procesadores se utilizan de forma óptima.
 
-<img src="/proyecto/results/boxplot.png" alt="Boxplot SSIM PSNR" width="500"/>  
+<img src="/proyecto/results/boxplot.png" alt="Boxplot SSIM PSNR" width="800"/>  
 
-<img src="/proyecto/results/rendimiento.png" alt="Rendimiento" width="500"/>  
+<img src="/proyecto/results/rendimiento.png" alt="Rendimiento" width="800"/>  
 
 
 ## Referencias
