@@ -27,6 +27,10 @@ Para evaluar el desempeño de un filtro para reducir el speckle, se requiere un 
 
 Mediante filtos adaptativos se puede reducir los efectos del speckle en imágenes SAR. El filtro Lee [2] suaviza el ruido en regiones homogéneas mientras preserva los bordes y detalles, ajustando la cantidad de filtrado según la variabilidad local de la imagen. El filtro Frost [3] utiliza un enfoque similar, pero pondera los píxeles cercanos al centro de la ventana de análisis y aquellos con valores más similares, lo que permite mantener estructuras importantes y contornos definidos. Por su parte, el filtro Gamma-MAP [4] se basa en un modelo estadístico del speckle, buscando estimar la señal subyacente de manera óptima; es especialmente efectivo en áreas homogéneas y contribuye a mejorar la calidad de la imagen sin comprometer demasiado la resolución.
 
+<p align="center">
+    <img src="/proyecto/imagenes/filtros.png" alt="Filtros" width="500"/>  
+</p>
+
 Las métricas utilizadas para evaluar cada filtro son:
 - **Structural Similarity Index Measure (SSIM):** mide la similitud estructural entre la imagen filtrada y la imagen de referencia. Evalúa aspectos como luminosidad, contraste y estructura, proporcionando un valor entre 0 y 1, donde valores más cercanos a 1 indican una mayor similitud.
 - **Peak signal-to-noise ratio (PSNR):** cuantifica la relación entre la señal (imagen original de referencia) y el ruido introducido o no eliminado en la imagen filtrada. Se expresa en decibelios (dB) y valores más altos corresponden a una mejor calidad.
