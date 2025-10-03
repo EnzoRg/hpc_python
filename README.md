@@ -51,10 +51,10 @@ Las metricas utilizadas para evaluar el rendimiento al paralelizar el proceso so
 </p>
 
 ## Referencias
-[1] Virtual SAR: A Synthetic Dataset for  Deep Learning based Speckle Noise Reduction  Algorithms
+[1] S. Dabhi, K. Soni, U. Patel, P. Sharma, and M. Parmar, "Virtual SAR: A Synthetic Dataset for Deep Learning based Speckle Noise Reduction Algorithms," in Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW), 2021, pp. 1968–1977. doi: 10.1109/CVPRW53098.2021.00209.
 
-[2] Lee
+[2] J.-S. Lee, "Digital Image Enhancement and Noise Filtering by Use of Local Statistics," IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. PAMI-2, no. 2, pp. 165–168, Mar. 1980, doi: 10.1109/TPAMI.1980.4766994.
 
-[3] Frost
+[3] V. S. Frost, J. A. Stiles, K. S. Shanmugan and J. C. Holtzman, "A Model for Radar Images and Its Application to Adaptive Digital Filtering of Multiplicative Noise," IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. PAMI-4, no. 2, pp. 157–165, Mar. 1982, doi: 10.1109/TPAMI.1982.4767223.
 
-[4] Gamma-MAP
+[4] A. Lopes, R. Touzi and E. Nezry, "Adaptive Speckle Filters and Scene Heterogeneity," IEEE Transactions on Geoscience and Remote Sensing, vol. 28, no. 6, pp. 992–1000, Nov. 1990, doi: 10.1109/36.61764.
