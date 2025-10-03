@@ -19,8 +19,8 @@ from filters import lee_filter, frost_filter, gamma_map_filter
 from plot_stats import plot 
 
 # Rutas
-base_path = "proyecto/img_sar"
-csv_path = "proyecto/img_sar/metricas.csv"
+base_path = "proyecto/data_sar"
+csv_path = "proyecto/data_sar/metricas.csv"
 results_path = "proyecto/results"
 
 def guardar_csv(imagen, filtro, psnr_val, ssim_val):
