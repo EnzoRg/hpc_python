@@ -21,7 +21,9 @@ Por otro lado, las imágenes SAR suelen ser de gran tamaño o generarse en grand
 
 Para evaluar el desempeño de un filtro para reducir el speckle, se requiere un conjunto de datos que contenga pares de imagenes SAR limpias y con ruido. Virtual SAR [1] es un dataset de imágenes aereas sobre la superficie terrestre. Contiene 31.500 pares de imagenes SAR sintéticas limpias y con ruido, lo cual resultan utiles para evaluar distintos métodos para reducir el speckle. 
 
-<img src="/proyecto/imagenes/image_sar.png" alt="Imagen SAR" width="500"/>  
+<p align="center">
+    <img src="/proyecto/imagenes/image_sar.png" alt="Imagen SAR" width="500"/>  
+</p>
 
 Mediante filtos adaptativos se puede reducir los efectos del speckle en imágenes SAR. El filtro Lee [2] suaviza el ruido en regiones homogéneas mientras preserva los bordes y detalles, ajustando la cantidad de filtrado según la variabilidad local de la imagen. El filtro Frost [3] utiliza un enfoque similar, pero pondera los píxeles cercanos al centro de la ventana de análisis y aquellos con valores más similares, lo que permite mantener estructuras importantes y contornos definidos. Por su parte, el filtro Gamma-MAP [4] se basa en un modelo estadístico del speckle, buscando estimar la señal subyacente de manera óptima; es especialmente efectivo en áreas homogéneas y contribuye a mejorar la calidad de la imagen sin comprometer demasiado la resolución.
 
@@ -36,11 +38,13 @@ Las metricas utilizadas para evaluar el rendimiento al paralelizar el proceso so
 - Speedup: representa la ganancia obtenida al paralelizar. Se define como la relación entre el tiempo de ejecución secuencial y el tiempo de ejecución paralelo con *p* procesadores. Un valor mayor indica una aceleración más efectiva.
 
 - Eficiencia: mide el grado de aprovechamiento de los recursos de cómputo. Se calcula como el speedup dividido por el número de procesadores *p*. Un valor de 1 representa el caso ideal, en el cual todos los procesadores se utilizan de forma óptima.
+<p align="center">
+    <img src="/proyecto/results/boxplot.png" alt="Boxplot SSIM PSNR" width="800"/>  
+</p>
 
-<img src="/proyecto/results/boxplot.png" alt="Boxplot SSIM PSNR" width="800"/>  
-
-<img src="/proyecto/results/rendimiento.png" alt="Rendimiento" width="800"/>  
-
+<p align="center">
+    <img src="/proyecto/results/rendimiento.png" alt="Rendimiento" width="800"/>  
+</p>
 
 ## Referencias
 [1] Virtual SAR: A Synthetic Dataset for  Deep Learning based Speckle Noise Reduction  Algorithms
