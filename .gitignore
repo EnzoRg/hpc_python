@@ -1,3 +1,11 @@
+/videos
+/otros
+/proyecto/virtual_sar_training_set
+/proyecto/data_sar
+/proyecto/others
+/src
+/docs
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
