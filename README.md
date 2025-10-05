@@ -106,7 +106,7 @@ Para mejorar este trabajo, se propone:
 - Utilizar batchs de imágenes más grandes, hasta 31.500.
 - Evaluar versiones más modernas de los filtros utilizados. 
 - Utilizar multihilo para la lectura y escritura de imágenes.
-- Mediante GPU utilizar PyCUDA y CUPy para procesar imágenes.
+- Mediante GPU utilizar PyCUDA o CUPy para procesar imágenes.
 
 ## Referencias
 [1] S. Dabhi, K. Soni, U. Patel, P. Sharma, and M. Parmar, "Virtual SAR: A Synthetic Dataset for Deep Learning based Speckle Noise Reduction Algorithms," in Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW), 2021, pp. 1968–1977. doi: 10.1109/CVPRW53098.2021.00209.
