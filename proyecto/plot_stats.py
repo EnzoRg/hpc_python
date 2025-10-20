@@ -82,30 +82,30 @@ def img_stats(path, save=True):
     df = pd.read_csv(path)
     df = df.drop_duplicates()
 
-    # Promedios
-    mean_vals = df.groupby("filter")[["psnr", "ssim"]].mean()
+    # # Promedios
+    # mean_vals = df.groupby("filter")[["psnr", "ssim"]].mean()
 
-    # Barras
-    fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+    # # Barras
+    # fig, ax = plt.subplots(1, 2, figsize=(12, 5))
 
-    mean_vals["psnr"].plot(kind="bar", ax=ax[0], color=["royalblue", "teal", "salmon"])
-    ax[0].set_title("PSNR promedio por filtro")
-    ax[0].set_ylabel("PSNR (dB)")
-    ax[0].grid(axis="y", linestyle="--", alpha=0.7)
+    # mean_vals["psnr"].plot(kind="bar", ax=ax[0], color=["royalblue", "teal", "salmon"])
+    # ax[0].set_title("PSNR promedio por filtro")
+    # ax[0].set_ylabel("PSNR (dB)")
+    # ax[0].grid(axis="y", linestyle="--", alpha=0.7)
 
-    mean_vals["ssim"].plot(kind="bar", ax=ax[1], color=["royalblue", "teal", "salmon"])
-    ax[1].set_title("SSIM promedio por filtro")
-    ax[1].set_ylabel("SSIM")
-    ax[1].grid(axis="y", linestyle="--", alpha=0.7)
-    plt.tight_layout(pad=1.5)
+    # mean_vals["ssim"].plot(kind="bar", ax=ax[1], color=["royalblue", "teal", "salmon"])
+    # ax[1].set_title("SSIM promedio por filtro")
+    # ax[1].set_ylabel("SSIM")
+    # ax[1].grid(axis="y", linestyle="--", alpha=0.7)
+    # plt.tight_layout(pad=1.5)
 
-    if save:
-        plt.show()
-        plt.savefig('proyecto/results/img_bars.png', dpi=fig.dpi)
-    else:
-        plt.show()
+    # if save:
+    #     plt.show()
+    #     plt.savefig('proyecto/results/img_bars.png', dpi=fig.dpi)
+    # else:
+    #     plt.show()
     
-    plt.close()
+    # plt.close()
 
     # Boxplots
     fig, ax = plt.subplots(1, 2, figsize=(12, 5))

@@ -69,12 +69,6 @@ conda activate hpc_python
 
 # Script principal
 python main.py
-
-# Generar gráficos para evaluar filtros
-python plot_img_stats.py
-
-# Generar gráficos para evaluar rendimiento
-python plot_all.py
 ```
 ### PSNR y SSIM
 
