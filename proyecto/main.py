@@ -16,12 +16,12 @@ from skimage.metrics import peak_signal_noise_ratio as psnr
 from skimage.metrics import structural_similarity as ssim
 
 from filters import lee_filter, frost_filter, gamma_map_filter
-from plot_stats import plot 
+from plot_stats import hpc_stats, img_stats
 
-# Rutas
-base_path = "proyecto/data_sar"
-csv_path = "proyecto/data_sar/metricas.csv"
-results_path = "proyecto/results"
+# Rutas -> Eliminar test
+base_path = "proyecto/data_sar_test"
+csv_path = "proyecto/data_sar_test/metricas.csv"
+results_path = "proyecto/results_test"
 
 def guardar_csv(imagen, filtro, psnr_val, ssim_val):
 
@@ -85,33 +85,40 @@ def metricas(img_filt, img_clean, image, filter):
 
 
 def main(base_path):
+
+    # Datos
+    image_names = list()
+    times = dict()
+
+    # Carpetas 
+    folder_in = os.path.join(base_path, "noise")
+
+    for image in os.listdir(folder_in):
+        if (image.endswith(".png") or image.endswith(".jpg") or image.endswith(".jpeg")):
+            image_names.append(image) 
     
     # Número de procesadores
     num_proc = mp.cpu_count()
 
-    times = dict()
-
-    folder_in = os.path.join(base_path, "noise")
-
     for p in range(1, num_proc + 1):
 
-        start = time.time()
-        image_names = list()
+        print(f"Número de procesos: {p}")
 
-        for image in os.listdir(folder_in):
-            if (image.endswith(".png") or image.endswith(".jpg") or image.endswith(".jpeg")):
-                image_names.append(image)    
+        start = time.time()
 
         with mp.Pool(processes=p) as pool:
             pool.map(procesar_imagen, image_names)
 
         end = time.time()
 
-        print("Num. Procesadores:", p, " Tiempo:", end - start)
+        duration = end - start
 
-        times[p] = end - start
+        print(f"Tiempo: {duration:.4f} s\n")
 
-    plot(times)
+        times[p] = duration
+
+    hpc_stats(times)
+    img_stats(csv_path)
 
 if __name__ == '__main__':
     main(base_path)

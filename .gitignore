@@ -4,6 +4,8 @@
 /proyecto/others
 /src
 /docs
+/proyecto/data_sar_test
+*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

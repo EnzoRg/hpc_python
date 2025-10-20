@@ -1,11 +1,18 @@
-import matplotlib.pyplot as plt
+# Introducción a la programación HPC con Python y sus aplicaciones al campo de proceso de imágenes 2025
+# Speckle en Imágenes SAR: Evaluación de filtros mediante multiprocesamiento
+
+__author__ = "Enzo Nicolás Manolucos"
+
+# Librerias 
 import sys
+import pandas as pd
+import matplotlib.pyplot as plt
 
 def lim(x):
     m = max(x)
     return m + (m * 0.1)
 
-def plot (times, save=True):
+def hpc_stats(times, save=True):
 
     fig = plt.figure()
     fig.set_figheight(6)
@@ -33,24 +40,24 @@ def plot (times, save=True):
     tiempo.set_xlabel("Número de procesos")
     tiempo.set_xticks(x)
     tiempo.set_ylim(0, lim(y))
-    tiempo.grid(color='blue', ls = '--', lw = 0.15)
-    tiempo.plot(x, y, 'blue', marker='o')
+    tiempo.grid(color='royalblue', ls = '--', lw = 0.15)
+    tiempo.plot(x, y, 'royalblue', marker='o')
 
     speedup.set_title("SpeedUp")
     speedup.set_xticks(x)
     speedup.set_ylim(0, lim(S))
     speedup.set_xlabel("Número de procesos")
-    speedup.grid(color='green', ls = '--', lw = 0.15)
+    speedup.grid(color='teal', ls = '--', lw = 0.15)
     # speedup.axhline(y = 1.0, linewidth = 0.5, linestyle = "--", color="green")
-    speedup.plot(x, S, 'green', marker='d')
+    speedup.plot(x, S, 'teal', marker='d')
 
     efficiency.set_title("Eficiencia")
     efficiency.set_xticks(x)
     efficiency.set_ylim(0, lim(E))
     efficiency.set_xlabel("Número de procesos")
-    efficiency.grid(color='red', ls = '--', lw = 0.15)
+    efficiency.grid(color='salmon', ls = '--', lw = 0.15)
     efficiency.axhline(y = 1.0, linewidth = 0.6, linestyle = "--", color="red")
-    efficiency.plot(x, E, 'red', marker='d')
+    efficiency.plot(x, E, 'salmon', marker='d')
 
     fig.tight_layout(pad=1.5)
 
@@ -61,8 +68,63 @@ def plot (times, save=True):
             for k,v in times.items():
                 f.write(str(k) + "," + str(v) + "\n")
 
-        graph = sys.argv[0].replace(".py", ".png")
-        plt.savefig(graph, dpi=fig.dpi)
+        #graph = sys.argv[0].replace(".py", ".png")
+        plt.show()
+        plt.savefig('proyecto/results/hpc_stats.png', dpi=fig.dpi)
 
     else:
         plt.show()
+
+    plt.close()
+
+def img_stats(path, save=True):
+
+    df = pd.read_csv(path)
+    df = df.drop_duplicates()
+
+    # Promedios
+    mean_vals = df.groupby("filter")[["psnr", "ssim"]].mean()
+
+    # Barras
+    fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+
+    mean_vals["psnr"].plot(kind="bar", ax=ax[0], color=["royalblue", "teal", "salmon"])
+    ax[0].set_title("PSNR promedio por filtro")
+    ax[0].set_ylabel("PSNR (dB)")
+    ax[0].grid(axis="y", linestyle="--", alpha=0.7)
+
+    mean_vals["ssim"].plot(kind="bar", ax=ax[1], color=["royalblue", "teal", "salmon"])
+    ax[1].set_title("SSIM promedio por filtro")
+    ax[1].set_ylabel("SSIM")
+    ax[1].grid(axis="y", linestyle="--", alpha=0.7)
+    plt.tight_layout(pad=1.5)
+
+    if save:
+        plt.show()
+        plt.savefig('proyecto/results/img_bars.png', dpi=fig.dpi)
+    else:
+        plt.show()
+    
+    plt.close()
+
+    # Boxplots
+    fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+
+    df.boxplot(column="psnr", by="filter", ax=ax[0])
+    ax[0].set_title("Distribución PSNR por filtro")
+    ax[0].set_ylabel("PSNR (dB)")
+
+    df.boxplot(column="ssim", by="filter", ax=ax[1])
+    ax[1].set_title("Distribución SSIM por filtro")
+    ax[1].set_ylabel("SSIM")
+
+    plt.suptitle("")  
+    plt.tight_layout(pad=1.5)
+
+    if save:
+        plt.show()
+        plt.savefig('proyecto/results/img_boxplot.png', dpi=fig.dpi)
+    else:
+        plt.show()
+
+    plt.close()
