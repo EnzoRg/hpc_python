@@ -12,7 +12,7 @@ def lim(x):
     m = max(x)
     return m + (m * 0.1)
 
-def hpc_stats(times, save=True):
+def hpc_stats(times, name="hpc_stats", save=True):
 
     fig = plt.figure()
     fig.set_figheight(6)
@@ -68,18 +68,18 @@ def hpc_stats(times, save=True):
                 f.write(str(k) + "," + str(v) + "\n")
 
         #graph = sys.argv[0].replace(".py", ".png")
+        fig.savefig(f"proyecto/results/{name}.png", dpi=fig.dpi)
         plt.show()
-        plt.savefig('proyecto/results/hpc_stats.png', dpi=fig.dpi)
 
     else:
         plt.show()
 
     plt.close()
 
-def img_stats(path, save=True):
+def img_stats(path, name="img_stats", save=True):
 
     df = pd.read_csv(path)
-    df = df.drop_duplicates()
+    #df = df.drop_duplicates()
 
     # Boxplots
     fig, ax = plt.subplots(1, 2, figsize=(12, 5))
@@ -96,8 +96,8 @@ def img_stats(path, save=True):
     plt.tight_layout(pad=1.5)
 
     if save:
+        fig.savefig(f"proyecto/results/{name}.png", dpi=fig.dpi)
         plt.show()
-        plt.savefig('proyecto/results/img_boxplot.png', dpi=fig.dpi)
     else:
         plt.show()
 

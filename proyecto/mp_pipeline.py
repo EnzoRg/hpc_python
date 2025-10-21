@@ -7,7 +7,6 @@ __author__ = "Enzo Nicolás Manolucos"
 import os 
 import cv2
 import csv
-import json
 import time
 import numpy as np
 import multiprocessing as mp
@@ -23,16 +22,14 @@ base_path = "proyecto/data_sar_test"
 csv_path = "proyecto/data_sar_test/metricas.csv"
 results_path = "proyecto/results_test"
 
-def guardar_csv(imagen, filtro, psnr_val, ssim_val):
+def guardar_csv(resultados):
 
-    # Guardar métricas
-    file_exists = os.path.isfile(csv_path)
-
-    with open(csv_path, mode='a', newline='') as f:
+    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+    with open(csv_path, mode="w", newline="") as f:
         writer = csv.writer(f)
-        if not file_exists:  
-            writer.writerow(["image", "filter", "psnr", "ssim"])
-        writer.writerow([imagen, filtro, f"{psnr_val:.4f}", f"{ssim_val:.4f}"])
+        writer.writerow(["image", "filter", "psnr", "ssim"])
+        for grupo in resultados:
+            writer.writerows(grupo)
 
 
 def filtrar_imagen(img, folder):
@@ -47,42 +44,41 @@ def filtrar_imagen(img, folder):
     else: 
         return img  
 
-def procesar_imagen(imagen):
+def procesar_imagen(imagen, show_metrics=False):
 
     # Nombre de las carpetas acorde a los filtros utilizados
-    folders = ["lee", "frost", "gamma"]
+    resultados = []
+    filtros = ["lee", "frost", "gamma"]
 
-    for folder in folders:
+    for filtro in filtros:
 
         # Carpetas 
-        os.makedirs(f"{base_path}/{folder}", exist_ok = True)
+        os.makedirs(f"{base_path}/{filtro}", exist_ok = True)
         noise_path  = f"{base_path}/noise/{imagen}"
         clean_path = f"{base_path}/clean/{imagen}"
-        result_path = f"{base_path}/{folder}/{imagen}"
+        result_path = f"{base_path}/{filtro}/{imagen}"
 
         # Leer imágen con speckle (noise) y limpia 
         img_noise = cv2.imread(noise_path, cv2.IMREAD_GRAYSCALE).astype(np.float32)
         img_clean = cv2.imread(clean_path, cv2.IMREAD_GRAYSCALE)
 
         # Filtrar imágen 
-        img_filt = filtrar_imagen(img_noise, folder)
-        metricas(img_filt, img_clean, imagen, folder)
+        img_filt = filtrar_imagen(img_noise, filtro)
+
+        # Calcular métricas
+        img_psnr = psnr(img_clean, img_filt, data_range=255)
+        img_ssim = ssim(img_clean, img_filt, data_range=255)  
+        resultados.append((imagen, filtro, img_psnr, img_ssim))
+
+        if show_metrics:
+            print(f"Filtro: {filtro}\tImagen: {imagen}\tPSNR: {img_psnr:.4f}\tSSIM: {img_ssim:.4f}")
 
         # Guardar imagen en formato uint8
         img_norm = cv2.normalize(img_filt, None, 0, 255, cv2.NORM_MINMAX)
         img_uint8 = img_norm.astype(np.uint8)
         cv2.imwrite(result_path, img_uint8)
 
-
-def metricas(img_filt, img_clean, image, filter):
-
-    # Calcular PSNR y SSIM
-    img_psnr = psnr(img_clean, img_filt, data_range=255)
-    img_ssim = ssim(img_clean, img_filt, data_range=255)  
-
-    print(f"Filtro: {filter}\tImagen: {image}\tPSNR: {img_psnr:.4f}\tSSIM: {img_ssim:.4f}")  
-    guardar_csv(image, filter, img_psnr, img_ssim)
-
+    return resultados
 
 def main(base_path):
 
@@ -107,7 +103,7 @@ def main(base_path):
         start = time.time()
 
         with mp.Pool(processes=p) as pool:
-            pool.map(procesar_imagen, image_names)
+            resultados = pool.map(procesar_imagen, image_names)
 
         end = time.time()
 
@@ -117,8 +113,11 @@ def main(base_path):
 
         times[p] = duration
 
-    hpc_stats(times)
-    img_stats(csv_path)
+        if p == num_proc:
+            guardar_csv(resultados)
+
+    hpc_stats(times, "mp_hpc_stats", True)
+    img_stats(csv_path, "mp_img_stats", True)
 
 if __name__ == '__main__':
     main(base_path)
