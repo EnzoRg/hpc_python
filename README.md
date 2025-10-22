@@ -68,7 +68,7 @@ conda env create -f environment.yaml
 conda activate hpc_python
 
 # Script principal
-python main.py
+python mp_pipeline.py
 ```
 ### PSNR y SSIM
 
