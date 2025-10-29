@@ -41,28 +41,32 @@ def plot_multiple(files, labels, colors):
 
     tiempo.set_title("Tiempo de ejecución")
     tiempo.set_ylabel("Segundos")
-    tiempo.set_xlabel("N° procesos")
-    tiempo.grid(color="blue", ls="--", lw=0.15)
+    tiempo.set_xlabel("Número de procesos")
+    tiempo.set_xticks(x)
+    tiempo.set_ylim(-500, lim(y))
+    tiempo.grid(alpha=0.5)
     tiempo.legend()
 
     speedup.set_title("SpeedUp")
-    speedup.set_xlabel("N° procesos")
-    speedup.grid(color="green", ls="--", lw=0.15)
+    speedup.set_xlabel("Número de procesos")
+    speedup.set_xticks(x)
+    speedup.grid(alpha=0.5)
     speedup.legend()
 
     efficiency.set_title("Eficiencia")
-    efficiency.set_xlabel("N° procesos")
-    efficiency.grid(color="red", ls="--", lw=0.15)
+    efficiency.set_xlabel("Número de procesos")
+    efficiency.set_xticks(x)
+    efficiency.grid(alpha=0.5)
     efficiency.axhline(y=1.0, linewidth=0.6, linestyle="--", color="red")
     efficiency.legend()
 
     fig.tight_layout(pad=1.5)
     plt.show()
-    fig.savefig('proyecto/results/rendimiento.png', dpi=fig.dpi)
+    fig.savefig('proyecto/results/mp_rendimiento.png', dpi=fig.dpi)
 
-archivos = ["proyecto/results/rendimiento_10.txt", "proyecto/results/rendimiento_100.txt", "proyecto/results/rendimiento_1000.txt"]
-labels   = ["Batch 10", "Batch 100", "Batch 1000"]
-colors   = ["royalblue", "teal", "salmon"]
+archivos = ["proyecto/results/mp_pipeline_10.txt", "proyecto/results/mp_pipeline_100.txt", "proyecto/results/mp_pipeline_1000.txt", "proyecto/results/mp_pipeline_10000.txt"]
+labels   = ["Batch 10", "Batch 100", "Batch 1000", "Batch 10000"]
+colors   = ["royalblue", "teal", "salmon", "goldenrod"]
 
 plot_multiple(archivos, labels, colors)
 
